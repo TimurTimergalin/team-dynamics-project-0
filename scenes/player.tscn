@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://fr2b2dcij3pb"]
+
+[ext_resource type="Script" uid="uid://dcb6ufef25w8f" path="res://scripts/logic/gravity_logic.gd" id="1_rkhd4"]
+[ext_resource type="Script" uid="uid://do2nsn7vo6vpd" path="res://scripts/stores/gravity_store.gd" id="2_lrhn5"]
+[ext_resource type="Script" uid="uid://ql3s7jxbe3ln" path="res://scripts/stores/horizontal_movement_store.gd" id="2_tuyoq"]
+[ext_resource type="Script" uid="uid://cnwggruap2e0n" path="res://scripts/logic/state_machine/state_machine.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://cp02gts22siqs" path="res://scripts/logic/player_movement_states/idle_state.gd" id="5_fjrip"]
+[ext_resource type="Script" uid="uid://ctm2er1thhhu2" path="res://scripts/logic/player_movement_states/walking_state.gd" id="6_smehm"]
+[ext_resource type="Script" uid="uid://dqpgrrp2tippy" path="res://scripts/logic/horizontal_movement_logic.gd" id="7_fjrip"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dkjbp"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_agfs1"]
+
+[node name="Player" type="CharacterBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_dkjbp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_agfs1")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5637494, 0)
+
+[node name="Stores" type="Node" parent="."]
+
+[node name="GravityStore" type="Node" parent="Stores"]
+script = ExtResource("2_lrhn5")
+
+[node name="HorizontalMovementStore" type="Node" parent="Stores"]
+script = ExtResource("2_tuyoq")
+max_velocity = 30.0
+acceleration = 5.0
+metadata/_custom_type_script = "uid://ql3s7jxbe3ln"
+
+[node name="Logic" type="Node" parent="."]
+
+[node name="GravityLogic" type="Node" parent="Logic" node_paths=PackedStringArray("gravity_store", "target")]
+script = ExtResource("1_rkhd4")
+gravity_store = NodePath("../../Stores/GravityStore")
+target = NodePath("../..")
+
+[node name="MovementStateMachine" type="Node" parent="Logic" node_paths=PackedStringArray("cur_state")]
+script = ExtResource("3_qhqgy")
+cur_state = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("walking_state", "player", "horizontal_movement_store", "player_camera")]
+script = ExtResource("5_fjrip")
+walking_state = NodePath("../WalkingState")
+player = NodePath("../../..")
+horizontal_movement_store = NodePath("../../../Stores/HorizontalMovementStore")
+player_camera = NodePath("../../../Camera3D")
+
+[node name="WalkingState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("idle_state", "player", "horizontal_movement_store", "player_camera")]
+script = ExtResource("6_smehm")
+idle_state = NodePath("../IdleState")
+player = NodePath("../../..")
+horizontal_movement_store = NodePath("../../../Stores/HorizontalMovementStore")
+player_camera = NodePath("../../../Camera3D")
+
+[node name="HorizontalMovementLogic" type="Node" parent="Logic" node_paths=PackedStringArray("target", "horizontal_movement_store")]
+script = ExtResource("7_fjrip")
+target = NodePath("../..")
+horizontal_movement_store = NodePath("../../Stores/HorizontalMovementStore")
