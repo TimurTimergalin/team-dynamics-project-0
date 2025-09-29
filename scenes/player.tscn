@@ -30,8 +30,9 @@ script = ExtResource("2_lrhn5")
 
 [node name="HorizontalMovementStore" type="Node" parent="Stores"]
 script = ExtResource("2_tuyoq")
-max_velocity = 30.0
-acceleration = 5.0
+max_velocity = 15.0
+acceleration = 50.0
+decceleration = 80.0
 metadata/_custom_type_script = "uid://ql3s7jxbe3ln"
 
 [node name="Logic" type="Node" parent="."]
