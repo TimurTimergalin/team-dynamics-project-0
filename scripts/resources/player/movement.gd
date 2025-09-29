@@ -7,3 +7,5 @@ class_name PlayerMovementResource
 @export var base_decceleration: float = 80
 @export var crouching_max_velocity: float = 5
 @export var crouching_acceleration: float = 50
+@export var running_max_velocity: float = 100
+@export var running_acceleration: float = 50
