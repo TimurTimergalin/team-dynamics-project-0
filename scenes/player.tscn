@@ -1,12 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://fr2b2dcij3pb"]
+[gd_scene load_steps=13 format=3 uid="uid://fr2b2dcij3pb"]
 
-[ext_resource type="Script" uid="uid://dcb6ufef25w8f" path="res://scripts/logic/gravity_logic.gd" id="1_rkhd4"]
-[ext_resource type="Script" uid="uid://do2nsn7vo6vpd" path="res://scripts/stores/gravity_store.gd" id="2_lrhn5"]
-[ext_resource type="Script" uid="uid://ql3s7jxbe3ln" path="res://scripts/stores/horizontal_movement_store.gd" id="2_tuyoq"]
+[ext_resource type="Script" uid="uid://dcb6ufef25w8f" path="res://scripts/logic/movement/gravity_logic.gd" id="1_rkhd4"]
+[ext_resource type="Script" uid="uid://do2nsn7vo6vpd" path="res://scripts/stores/movement/gravity_store.gd" id="2_lrhn5"]
+[ext_resource type="Script" uid="uid://ql3s7jxbe3ln" path="res://scripts/stores/movement/horizontal_movement_store.gd" id="2_tuyoq"]
 [ext_resource type="Script" uid="uid://cnwggruap2e0n" path="res://scripts/logic/state_machine/state_machine.gd" id="3_qhqgy"]
-[ext_resource type="Script" uid="uid://cp02gts22siqs" path="res://scripts/logic/player_movement_states/idle_state.gd" id="5_fjrip"]
-[ext_resource type="Script" uid="uid://ctm2er1thhhu2" path="res://scripts/logic/player_movement_states/walking_state.gd" id="6_smehm"]
-[ext_resource type="Script" uid="uid://dqpgrrp2tippy" path="res://scripts/logic/horizontal_movement_logic.gd" id="7_fjrip"]
+[ext_resource type="Script" uid="uid://txxxg8fe1t3n" path="res://scripts/stores/movement/crouching_store.gd" id="3_ur7pv"]
+[ext_resource type="Script" uid="uid://cp02gts22siqs" path="res://scripts/logic/movement/player_movement_states/idle_state.gd" id="5_fjrip"]
+[ext_resource type="Script" uid="uid://ctm2er1thhhu2" path="res://scripts/logic/movement/player_movement_states/walking_state.gd" id="6_smehm"]
+[ext_resource type="Script" uid="uid://dqpgrrp2tippy" path="res://scripts/logic/movement/horizontal_movement_logic.gd" id="7_fjrip"]
+[ext_resource type="Script" uid="uid://jni8u8uya2y4" path="res://scripts/logic/movement/player_movement_states/crouching_state.gd" id="8_y4r1p"]
+[ext_resource type="Resource" uid="uid://dtk2blb0doadl" path="res://resources/player/movement.tres" id="9_y4r1p"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dkjbp"]
 
@@ -30,10 +33,10 @@ script = ExtResource("2_lrhn5")
 
 [node name="HorizontalMovementStore" type="Node" parent="Stores"]
 script = ExtResource("2_tuyoq")
-max_velocity = 15.0
-acceleration = 50.0
-decceleration = 80.0
 metadata/_custom_type_script = "uid://ql3s7jxbe3ln"
+
+[node name="CrouchingStore" type="Node" parent="Stores"]
+script = ExtResource("3_ur7pv")
 
 [node name="Logic" type="Node" parent="."]
 
@@ -46,19 +49,33 @@ target = NodePath("../..")
 script = ExtResource("3_qhqgy")
 cur_state = NodePath("IdleState")
 
-[node name="IdleState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("walking_state", "player", "horizontal_movement_store", "player_camera")]
+[node name="IdleState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("walking_state", "crouching_state", "player", "horizontal_movement_store", "player_camera")]
 script = ExtResource("5_fjrip")
 walking_state = NodePath("../WalkingState")
+crouching_state = NodePath("../CrouchingState")
 player = NodePath("../../..")
 horizontal_movement_store = NodePath("../../../Stores/HorizontalMovementStore")
 player_camera = NodePath("../../../Camera3D")
+player_movement_resource = ExtResource("9_y4r1p")
 
-[node name="WalkingState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("idle_state", "player", "horizontal_movement_store", "player_camera")]
+[node name="WalkingState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("idle_state", "crouching_state", "player", "horizontal_movement_store", "player_camera")]
 script = ExtResource("6_smehm")
+idle_state = NodePath("../IdleState")
+crouching_state = NodePath("../CrouchingState")
+player = NodePath("../../..")
+horizontal_movement_store = NodePath("../../../Stores/HorizontalMovementStore")
+player_camera = NodePath("../../../Camera3D")
+player_movement_resource = ExtResource("9_y4r1p")
+
+[node name="CrouchingState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("crouching_store", "walking_state", "idle_state", "player", "horizontal_movement_store", "player_camera")]
+script = ExtResource("8_y4r1p")
+crouching_store = NodePath("../../../Stores/CrouchingStore")
+walking_state = NodePath("../WalkingState")
 idle_state = NodePath("../IdleState")
 player = NodePath("../../..")
 horizontal_movement_store = NodePath("../../../Stores/HorizontalMovementStore")
 player_camera = NodePath("../../../Camera3D")
+player_movement_resource = ExtResource("9_y4r1p")
 
 [node name="HorizontalMovementLogic" type="Node" parent="Logic" node_paths=PackedStringArray("target", "horizontal_movement_store")]
 script = ExtResource("7_fjrip")

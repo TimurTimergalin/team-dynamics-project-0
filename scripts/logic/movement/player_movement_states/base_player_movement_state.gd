@@ -5,6 +5,7 @@ class_name BasePlayerMovementState
 @export var player: CharacterBody3D
 @export var horizontal_movement_store: HorizontalMovementStore
 @export var player_camera: Camera3D
+@export var player_movement_resource: PlayerMovementResource
 
 func get_player_movement_direction() -> Vector2:
     var input_direction = Input.get_vector(MainActions.move_left, MainActions.move_right, MainActions.move_forward, MainActions.move_backwards).normalized()
