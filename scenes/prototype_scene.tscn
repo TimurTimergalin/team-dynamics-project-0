@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://fr2b2dcij3pb" path="res://scenes/player.tscn" id="1_eh505"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g0xkr"]
-size = Vector3(50, 1, 50)
+size = Vector3(200, 1, 200)
 
 [sub_resource type="BoxMesh" id="BoxMesh_eh505"]
-size = Vector3(50, 1, 50)
+size = Vector3(200, 1, 200)
 
 [node name="PrototypeScene" type="Node3D"]
 
@@ -22,8 +22,8 @@ shape = SubResource("BoxShape3D_g0xkr")
 [node name="Mesh" type="MeshInstance3D" parent="Floor"]
 mesh = SubResource("BoxMesh_eh505")
 
-[node name="Player" parent="." instance=ExtResource("1_eh505")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9343629, 141.74478, 2.5270216)
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.9988138, 0.048536543, 0.0038991899, 0.048692912, 0.9956063, 0.07998217, 0, 0.08007716, -0.99678874, 1.6119766, 136.79535, -10.984094)
+
+[node name="Player" parent="." instance=ExtResource("1_eh505")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9343629, 141.74478, 2.5270216)

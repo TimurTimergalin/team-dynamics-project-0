@@ -2,6 +2,7 @@ extends BasePlayerMovementState
 
 @export var walking_state: BasePlayerMovementState
 @export var crouching_state: BasePlayerMovementState
+@export var running_state: BasePlayerMovementState
 
 func enter() -> void:
 	horizontal_movement_store.decceleration = player_movement_resource.base_decceleration
@@ -15,6 +16,10 @@ func process(_delta: float) -> State:
 		return crouching_state
 
 	if direction:
-		return walking_state
+		return (
+            running_state
+            if is_running_input()
+            else walking_state
+        )
 	
 	return self
