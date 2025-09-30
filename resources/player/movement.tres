@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_tlj7n")
 walking_max_velocity = 25.0
-walking_acceleration = 100.0
+walking_acceleration = 1000.0
 base_decceleration = 200.0
