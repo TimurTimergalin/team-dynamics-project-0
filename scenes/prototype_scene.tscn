@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3m6ywg4csdiu"]
+[gd_scene load_steps=5 format=3 uid="uid://b3m6ywg4csdiu"]
 
+[ext_resource type="Material" uid="uid://cmlreoo2qwhp4" path="res://assets/art/godot-prototype-texture/StructureMaterial.tres" id="1_b4brf"]
 [ext_resource type="PackedScene" uid="uid://fr2b2dcij3pb" path="res://scenes/player.tscn" id="1_eh505"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g0xkr"]
@@ -13,17 +14,45 @@ size = Vector3(200, 1, 200)
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.3742344, 0.9273342, 0, -0.9273342, -0.3742344, 0, 142.40253, 0)
 
-[node name="Floor" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 134, 0)
+[node name="OldFloor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 74.71409, 0)
+visible = false
 
-[node name="Collision" type="CollisionShape3D" parent="Floor"]
+[node name="Collision" type="CollisionShape3D" parent="OldFloor"]
 shape = SubResource("BoxShape3D_g0xkr")
 
-[node name="Mesh" type="MeshInstance3D" parent="Floor"]
+[node name="Mesh" type="MeshInstance3D" parent="OldFloor"]
 mesh = SubResource("BoxMesh_eh505")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.9988138, 0.048536543, 0.0038991899, 0.048692912, 0.9956063, 0.07998217, 0, 0.08007716, -0.99678874, 1.6119766, 136.79535, -10.984094)
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09276199, 7.6293945e-06, -0.003068447)
+use_collision = true
+size = Vector3(500, 1, 500)
+material = ExtResource("1_b4brf")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(-0.31967047, 0, 0.9475288, 0, 1, 0, -0.9475288, 0, -0.31967047, 10.899532, 1.9165509, -29.530094)
+size = Vector3(5, 15, 25)
+material = ExtResource("1_b4brf")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.372787, 1.9165509, -0.24003029)
+size = Vector3(5, 10, 7)
+material = ExtResource("1_b4brf")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9905224, 0.95827544, 23.835878)
+size = Vector3(5, 20, 10)
+material = ExtResource("1_b4brf")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.387068, 0.95827544, 10.912836)
+size = Vector3(5, 15, 100)
+material = ExtResource("1_b4brf")
 
 [node name="Player" parent="." instance=ExtResource("1_eh505")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9343629, 141.74478, 2.5270216)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.284872, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.08781659, 0.084034435, -0.9925858, 0.048692916, 0.9956063, 0.07998218, 0.9949458, -0.041308135, -0.091522634, -7.8341513, 6.0633097, -2.3378296)
+fov = 70.617744
