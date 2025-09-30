@@ -6,7 +6,7 @@ extends BasePlayerMovementState
 func enter() -> void:
 	horizontal_movement_store.decceleration = player_movement_resource.base_decceleration
 
-func process(delta: float) -> State:
+func physics_process(delta: float) -> State:
 	var direction = get_player_movement_direction()
 	horizontal_movement_store.direction = direction
 	HorizontalMovementLib.process(player, horizontal_movement_store, delta)
