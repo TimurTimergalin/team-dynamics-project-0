@@ -12,10 +12,3 @@ func get_player_movement_direction() -> Vector2:
 
 	var vector3_direction = (player_camera.global_basis * Vector3(input_direction.x, 0.0, input_direction.y))
 	return Vector2(vector3_direction.x, vector3_direction.z).normalized()
-
-func is_running_input() -> bool:
-	return (
-	Input.is_action_pressed(MainActions.run) #and
-	#Input.is_action_pressed(MainActions.move_forward) and
-	#!Input.is_action_pressed(MainActions.move_backwards)
-	) 

@@ -7,8 +7,8 @@
 [ext_resource type="Script" uid="uid://cp02gts22siqs" path="res://scripts/logic/movement/player_movement_states/idle_state.gd" id="5_fjrip"]
 [ext_resource type="Script" uid="uid://ctm2er1thhhu2" path="res://scripts/logic/movement/player_movement_states/walking_state.gd" id="6_smehm"]
 [ext_resource type="Script" uid="uid://jni8u8uya2y4" path="res://scripts/logic/movement/player_movement_states/crouching_state.gd" id="8_y4r1p"]
-[ext_resource type="Script" uid="uid://c65k3htjnx83x" path="res://scripts/logic/movement/player_movement_states/running_state.gd" id="9_d2wvv"]
 [ext_resource type="Resource" uid="uid://dtk2blb0doadl" path="res://resources/player/movement.tres" id="9_y4r1p"]
+[ext_resource type="Script" uid="uid://i6cfyh3no4en" path="res://scripts/logic/state_machine/state_machine_logger.gd" id="10_d2wvv"]
 [ext_resource type="Script" uid="uid://drvqm8nefhw2w" path="res://scripts/logic/camera/camera_logic.gd" id="11_d2wvv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dkjbp"]
@@ -48,45 +48,37 @@ target = NodePath("../..")
 script = ExtResource("3_qhqgy")
 cur_state = NodePath("IdleState")
 
-[node name="IdleState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("walking_state", "crouching_state", "running_state", "player", "horizontal_movement_store", "player_camera")]
+[node name="IdleState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("walking_state", "crouching_state", "player", "horizontal_movement_store", "player_camera")]
 script = ExtResource("5_fjrip")
 walking_state = NodePath("../WalkingState")
 crouching_state = NodePath("../CrouchingState")
-running_state = NodePath("../RunningState")
 player = NodePath("../../..")
 horizontal_movement_store = NodePath("../../../Stores/HorizontalMovementStore")
 player_camera = NodePath("../../../CameraHolder/Camera3D")
 player_movement_resource = ExtResource("9_y4r1p")
 
-[node name="WalkingState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("idle_state", "crouching_state", "running_state", "player", "horizontal_movement_store", "player_camera")]
+[node name="WalkingState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("idle_state", "crouching_state", "player", "horizontal_movement_store", "player_camera")]
 script = ExtResource("6_smehm")
 idle_state = NodePath("../IdleState")
 crouching_state = NodePath("../CrouchingState")
-running_state = NodePath("../RunningState")
 player = NodePath("../../..")
 horizontal_movement_store = NodePath("../../../Stores/HorizontalMovementStore")
 player_camera = NodePath("../../../CameraHolder/Camera3D")
 player_movement_resource = ExtResource("9_y4r1p")
 
-[node name="CrouchingState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("walking_state", "idle_state", "running_state", "player", "horizontal_movement_store", "player_camera")]
+[node name="CrouchingState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("walking_state", "idle_state", "player", "horizontal_movement_store", "player_camera")]
 script = ExtResource("8_y4r1p")
 walking_state = NodePath("../WalkingState")
 idle_state = NodePath("../IdleState")
-running_state = NodePath("../RunningState")
 player = NodePath("../../..")
 horizontal_movement_store = NodePath("../../../Stores/HorizontalMovementStore")
 player_camera = NodePath("../../../CameraHolder/Camera3D")
 player_movement_resource = ExtResource("9_y4r1p")
 
-[node name="RunningState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("walking_state", "idle_state", "crouching_state", "player", "horizontal_movement_store", "player_camera")]
-script = ExtResource("9_d2wvv")
-walking_state = NodePath("../WalkingState")
-idle_state = NodePath("../IdleState")
-crouching_state = NodePath("../CrouchingState")
-player = NodePath("../../..")
-horizontal_movement_store = NodePath("../../../Stores/HorizontalMovementStore")
-player_camera = NodePath("../../../CameraHolder/Camera3D")
-player_movement_resource = ExtResource("9_y4r1p")
+[node name="MovementStateMachineLog" type="Node" parent="Logic" node_paths=PackedStringArray("state_machine")]
+script = ExtResource("10_d2wvv")
+state_machine = NodePath("../MovementStateMachine")
+machine_name = "Movement State Machine"
 
 [node name="CameraLogic" type="Node" parent="Logic" node_paths=PackedStringArray("camera_holder", "camera")]
 script = ExtResource("11_d2wvv")
