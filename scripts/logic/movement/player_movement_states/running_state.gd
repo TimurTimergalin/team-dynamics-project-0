@@ -9,9 +9,10 @@ func enter() -> void:
 	horizontal_movement_store.acceleration = player_movement_resource.running_acceleration
 	horizontal_movement_store.max_velocity = player_movement_resource.running_max_velocity
 
-func process(_delta: float) -> State:
+func process(delta: float) -> State:
 	var direction = get_player_movement_direction()
 	horizontal_movement_store.direction = direction
+	HorizontalMovementLib.process(player, horizontal_movement_store, delta)
 
 	if Input.is_action_pressed(MainActions.crouch):
 		return crouching_state

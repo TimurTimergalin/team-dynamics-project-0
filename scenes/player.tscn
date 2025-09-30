@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://fr2b2dcij3pb"]
+[gd_scene load_steps=13 format=3 uid="uid://fr2b2dcij3pb"]
 
 [ext_resource type="Script" uid="uid://dcb6ufef25w8f" path="res://scripts/logic/movement/gravity_logic.gd" id="1_rkhd4"]
 [ext_resource type="Script" uid="uid://do2nsn7vo6vpd" path="res://scripts/stores/movement/gravity_store.gd" id="2_lrhn5"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://cnwggruap2e0n" path="res://scripts/logic/state_machine/state_machine.gd" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://cp02gts22siqs" path="res://scripts/logic/movement/player_movement_states/idle_state.gd" id="5_fjrip"]
 [ext_resource type="Script" uid="uid://ctm2er1thhhu2" path="res://scripts/logic/movement/player_movement_states/walking_state.gd" id="6_smehm"]
-[ext_resource type="Script" uid="uid://dqpgrrp2tippy" path="res://scripts/logic/movement/horizontal_movement_logic.gd" id="7_fjrip"]
 [ext_resource type="Script" uid="uid://jni8u8uya2y4" path="res://scripts/logic/movement/player_movement_states/crouching_state.gd" id="8_y4r1p"]
 [ext_resource type="Script" uid="uid://c65k3htjnx83x" path="res://scripts/logic/movement/player_movement_states/running_state.gd" id="9_d2wvv"]
 [ext_resource type="Resource" uid="uid://dtk2blb0doadl" path="res://resources/player/movement.tres" id="9_y4r1p"]
@@ -88,11 +87,6 @@ player = NodePath("../../..")
 horizontal_movement_store = NodePath("../../../Stores/HorizontalMovementStore")
 player_camera = NodePath("../../../CameraHolder/Camera3D")
 player_movement_resource = ExtResource("9_y4r1p")
-
-[node name="HorizontalMovementLogic" type="Node" parent="Logic" node_paths=PackedStringArray("target", "horizontal_movement_store")]
-script = ExtResource("7_fjrip")
-target = NodePath("../..")
-horizontal_movement_store = NodePath("../../Stores/HorizontalMovementStore")
 
 [node name="CameraLogic" type="Node" parent="Logic" node_paths=PackedStringArray("camera_holder", "camera")]
 script = ExtResource("11_d2wvv")
