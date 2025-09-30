@@ -17,9 +17,9 @@ func process(_delta: float) -> State:
 
 	if direction:
 		return (
-            running_state
-            if is_running_input()
-            else walking_state
-        )
+			running_state
+			if is_running_input()
+			else walking_state
+		)
 	
 	return self

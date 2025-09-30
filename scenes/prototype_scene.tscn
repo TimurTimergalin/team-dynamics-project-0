@@ -50,6 +50,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.387068, 0.95827544, 10.91
 size = Vector3(5, 15, 100)
 material = ExtResource("1_b4brf")
 
+[node name="CSGBox3D5" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.395604, 1.1589451, -7.9887643)
+size = Vector3(1, 2, 1)
+material = ExtResource("1_b4brf")
+
 [node name="Player" parent="." instance=ExtResource("1_eh505")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.284872, 0)
 
