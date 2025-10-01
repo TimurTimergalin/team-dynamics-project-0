@@ -4,9 +4,9 @@ class_name CharacterBodyMoveAndSlideLogic
 
 @export var body: CharacterBody3D
 
-signal slided
+signal after_move
 
 func _physics_process(_delta: float) -> void:
-    var velocity := body.velocity
-    if body.move_and_slide():
-        slided.emit(velocity, body.get_last_slide_collision())
+    var old_velocity := body.velocity
+    var slided = body.move_and_slide()
+    after_move.emit(old_velocity, body.velocity, slided)

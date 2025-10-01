@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dcb6ufef25w8f" path="res://scripts/logic/movement/gravity_logic.gd" id="1_rkhd4"]
 [ext_resource type="Script" uid="uid://do2nsn7vo6vpd" path="res://scripts/stores/movement/gravity_store.gd" id="2_lrhn5"]
 [ext_resource type="Script" uid="uid://ql3s7jxbe3ln" path="res://scripts/stores/movement/horizontal_movement_store.gd" id="2_tuyoq"]
-[ext_resource type="Script" uid="uid://cnwggruap2e0n" path="res://scripts/logic/state_machine/state_machine.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://cncbwyrywwtas" path="res://scripts/logic/movement/player_movement_state_machine/player_movement_state_machine.gd" id="4_d2wvv"]
 [ext_resource type="Script" uid="uid://cp02gts22siqs" path="res://scripts/logic/movement/player_movement_state_machine/idle_state.gd" id="5_fjrip"]
 [ext_resource type="Script" uid="uid://ctm2er1thhhu2" path="res://scripts/logic/movement/player_movement_state_machine/walking_state.gd" id="6_smehm"]
 [ext_resource type="Script" uid="uid://jni8u8uya2y4" path="res://scripts/logic/movement/player_movement_state_machine/crouching_state.gd" id="8_y4r1p"]
@@ -13,7 +13,8 @@
 [ext_resource type="Resource" uid="uid://bgqa0tcc2e6tv" path="res://resources/player/camera_controller.tres" id="11_d2wvv"]
 [ext_resource type="Script" uid="uid://ogc2ldxcn888" path="res://scripts/logic/movement/character_body_move_and_slide_logic.gd" id="11_3v2ag"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dkjbp"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_d2wvv"]
+size = Vector3(1, 2, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_agfs1"]
 
@@ -57,7 +58,7 @@ _data = {
 [node name="Player" type="CharacterBody3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_dkjbp")
+shape = SubResource("BoxShape3D_d2wvv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_agfs1")
@@ -88,8 +89,9 @@ script = ExtResource("1_rkhd4")
 gravity_store = NodePath("../../Stores/GravityStore")
 target = NodePath("../..")
 
-[node name="MovementStateMachine" type="Node" parent="Logic" node_paths=PackedStringArray("cur_state")]
-script = ExtResource("3_qhqgy")
+[node name="MovementStateMachine" type="Node" parent="Logic" node_paths=PackedStringArray("move_and_slide_logic", "cur_state")]
+script = ExtResource("4_d2wvv")
+move_and_slide_logic = NodePath("../MoveAndSlideLogic")
 cur_state = NodePath("IdleState")
 
 [node name="IdleState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("walking_state", "crouching_state", "player", "horizontal_movement_store", "player_camera")]
