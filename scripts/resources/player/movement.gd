@@ -11,3 +11,6 @@ class_name PlayerMovementResource
 @export var jumping_acceleration: float = 10
 @export var jumping_initial_velocity: float = 80
 @export var jumping_max_control_retention: float = 20 # Должно быть не меньше, чем jumping_max_velocity
+
+@export var free_fall_acceleration: float = -15
+@export var free_fall_decceleration: float = -9.8
