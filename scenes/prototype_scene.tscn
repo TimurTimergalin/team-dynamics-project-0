@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b3m6ywg4csdiu"]
 
 [ext_resource type="Material" uid="uid://cmlreoo2qwhp4" path="res://assets/art/godot-prototype-texture/StructureMaterial.tres" id="1_b4brf"]
-[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_eh505"]
+[ext_resource type="PackedScene" uid="uid://fr2b2dcij3pb" path="res://scenes/player.tscn" id="1_eh505"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g0xkr"]
 size = Vector3(200, 1, 200)
