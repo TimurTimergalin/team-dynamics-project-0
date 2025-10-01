@@ -1,0 +1,22 @@
+class_name CameraControllerLogic
+extends Node
+
+@export var camera_holder: Node3D
+@export var camera: Camera3D
+@export var cam_res: CameraControllerResource
+
+func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	
+func _unhandled_input(_event: InputEvent) -> void:
+	if _event is InputEventMouseMotion:
+		camera_holder.rotate_y(-_event.relative.x * cam_res.sens)
+		camera.rotate_x(-_event.relative.y * cam_res.sens)	
+		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-cam_res.down_look_limit), deg_to_rad(cam_res.up_look_limit))	
+	
+#func _process(delta: float) -> void:
+	#var mouse_velocity := Input.get_last_mouse_velocity()
+	#camera_holder.rotate_y(-mouse_velocity.x * SENSITIVITY * delta)
+	#camera.rotate_x(-mouse_velocity.y * SENSITIVITY * delta)
+	

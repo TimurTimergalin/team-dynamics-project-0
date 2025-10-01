@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="CameraControllerResource" load_steps=2 format=3 uid="uid://bgqa0tcc2e6tv"]
+
+[ext_resource type="Script" uid="uid://0hwxtxopxlhu" path="res://scripts/resources/player/camera_controller_resource.gd" id="1_tvh75"]
+
+[resource]
+script = ExtResource("1_tvh75")
+metadata/_custom_type_script = "uid://0hwxtxopxlhu"

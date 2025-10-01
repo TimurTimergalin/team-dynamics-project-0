@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://fr2b2dcij3pb"]
+[gd_scene load_steps=14 format=3 uid="uid://fr2b2dcij3pb"]
 
 [ext_resource type="Script" uid="uid://dcb6ufef25w8f" path="res://scripts/logic/movement/gravity_logic.gd" id="1_rkhd4"]
 [ext_resource type="Script" uid="uid://do2nsn7vo6vpd" path="res://scripts/stores/movement/gravity_store.gd" id="2_lrhn5"]
@@ -9,7 +9,8 @@
 [ext_resource type="Script" uid="uid://jni8u8uya2y4" path="res://scripts/logic/movement/player_movement_states/crouching_state.gd" id="8_y4r1p"]
 [ext_resource type="Resource" uid="uid://dtk2blb0doadl" path="res://resources/player/movement.tres" id="9_y4r1p"]
 [ext_resource type="Script" uid="uid://i6cfyh3no4en" path="res://scripts/logic/state_machine/state_machine_logger.gd" id="10_d2wvv"]
-[ext_resource type="Script" uid="uid://drvqm8nefhw2w" path="res://scripts/logic/camera/camera_logic.gd" id="11_d2wvv"]
+[ext_resource type="Script" uid="uid://drvqm8nefhw2w" path="res://scripts/logic/camera/camera_controller_logic.gd" id="10_y4r1p"]
+[ext_resource type="Resource" uid="uid://bgqa0tcc2e6tv" path="res://resources/player/camera_controller.tres" id="11_d2wvv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dkjbp"]
 
@@ -80,8 +81,9 @@ script = ExtResource("10_d2wvv")
 state_machine = NodePath("../MovementStateMachine")
 machine_name = "Movement State Machine"
 
-[node name="CameraLogic" type="Node" parent="Logic" node_paths=PackedStringArray("camera_holder", "camera")]
-script = ExtResource("11_d2wvv")
+[node name="CameraControllerLogic" type="Node" parent="Logic" node_paths=PackedStringArray("camera_holder", "camera")]
+script = ExtResource("10_y4r1p")
 camera_holder = NodePath("../../CameraHolder")
 camera = NodePath("../../CameraHolder/Camera3D")
+cam_res = ExtResource("11_d2wvv")
 metadata/_custom_type_script = "uid://drvqm8nefhw2w"
