@@ -87,3 +87,5 @@ camera_holder = NodePath("../../CameraHolder")
 camera = NodePath("../../CameraHolder/Camera3D")
 cam_res = ExtResource("11_d2wvv")
 metadata/_custom_type_script = "uid://drvqm8nefhw2w"
+
+[connection signal="state_changed" from="Logic/MovementStateMachine" to="Logic/CameraControllerLogic" method="_on_state_changed"]

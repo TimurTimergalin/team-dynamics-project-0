@@ -1,3 +1,4 @@
+class_name CrouchingState
 extends BasePlayerMovementState
 
 @export var walking_state: BasePlayerMovementState
