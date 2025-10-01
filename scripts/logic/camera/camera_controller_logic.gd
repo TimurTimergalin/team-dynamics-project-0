@@ -4,6 +4,8 @@ extends Node
 @export var camera_holder: Node3D
 @export var camera: Camera3D
 @export var cam_res: CameraControllerResource
+@export var camera_player: AnimationPlayer
+
 
 var is_cam_down: bool = false
 
@@ -20,7 +22,14 @@ func _unhandled_input(_event: InputEvent) -> void:
 
 func _on_state_changed(from_state, to_state) -> void:
 	if to_state is CrouchingState:
-		camera_holder.position.y -= 1
+		if camera_player.current_animation == "camera_crouch":
+			camera_player.speed_scale *= -1
+		else:
+			camera_player.speed_scale = 1
+			camera_player.play("camera_crouch")
 	elif from_state is CrouchingState:
-		camera_holder.position.y += 1
-	
+		if camera_player.current_animation == "camera_crouch":
+			camera_player.speed_scale *= -1
+		else:
+			camera_player.speed_scale = 1
+			camera_player.play_backwards("camera_crouch")
