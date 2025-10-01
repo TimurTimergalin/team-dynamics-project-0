@@ -6,6 +6,7 @@ extends Node
 @export var cam_res: CameraControllerResource
 
 func _ready() -> void:
+	camera.fov = cam_res.fov
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	
