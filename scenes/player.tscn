@@ -3,16 +3,19 @@
 [ext_resource type="Script" uid="uid://dcb6ufef25w8f" path="res://scripts/logic/movement/gravity_logic.gd" id="1_rkhd4"]
 [ext_resource type="Script" uid="uid://do2nsn7vo6vpd" path="res://scripts/stores/movement/gravity_store.gd" id="2_lrhn5"]
 [ext_resource type="Script" uid="uid://ql3s7jxbe3ln" path="res://scripts/stores/movement/horizontal_movement_store.gd" id="2_tuyoq"]
-[ext_resource type="Script" uid="uid://cnwggruap2e0n" path="res://scripts/logic/state_machine/state_machine.gd" id="3_qhqgy"]
-[ext_resource type="Script" uid="uid://cp02gts22siqs" path="res://scripts/logic/movement/player_movement_states/idle_state.gd" id="5_fjrip"]
-[ext_resource type="Script" uid="uid://ctm2er1thhhu2" path="res://scripts/logic/movement/player_movement_states/walking_state.gd" id="6_smehm"]
-[ext_resource type="Script" uid="uid://jni8u8uya2y4" path="res://scripts/logic/movement/player_movement_states/crouching_state.gd" id="8_y4r1p"]
+[ext_resource type="Script" uid="uid://cncbwyrywwtas" path="res://scripts/logic/movement/player_movement_state_machine/player_movement_state_machine.gd" id="4_d2wvv"]
+[ext_resource type="Script" uid="uid://cp02gts22siqs" path="res://scripts/logic/movement/player_movement_state_machine/idle_state.gd" id="5_fjrip"]
+[ext_resource type="Script" uid="uid://ctm2er1thhhu2" path="res://scripts/logic/movement/player_movement_state_machine/walking_state.gd" id="6_smehm"]
+[ext_resource type="Script" uid="uid://jni8u8uya2y4" path="res://scripts/logic/movement/player_movement_state_machine/crouching_state.gd" id="8_y4r1p"]
+[ext_resource type="Script" uid="uid://di50bj68kopnv" path="res://scripts/logic/movement/player_movement_state_machine/jumping_state.gd" id="9_3v2ag"]
 [ext_resource type="Resource" uid="uid://dtk2blb0doadl" path="res://resources/player/movement.tres" id="9_y4r1p"]
 [ext_resource type="Script" uid="uid://i6cfyh3no4en" path="res://scripts/logic/state_machine/state_machine_logger.gd" id="10_d2wvv"]
 [ext_resource type="Script" uid="uid://drvqm8nefhw2w" path="res://scripts/logic/camera/camera_controller_logic.gd" id="10_y4r1p"]
 [ext_resource type="Resource" uid="uid://bgqa0tcc2e6tv" path="res://resources/player/camera_controller.tres" id="11_d2wvv"]
+[ext_resource type="Script" uid="uid://ogc2ldxcn888" path="res://scripts/logic/movement/character_body_move_and_slide_logic.gd" id="11_3v2ag"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dkjbp"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_d2wvv"]
+size = Vector3(1, 2, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_agfs1"]
 
@@ -56,7 +59,7 @@ _data = {
 [node name="Player" type="CharacterBody3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_dkjbp")
+shape = SubResource("BoxShape3D_d2wvv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_agfs1")
@@ -87,30 +90,44 @@ script = ExtResource("1_rkhd4")
 gravity_store = NodePath("../../Stores/GravityStore")
 target = NodePath("../..")
 
-[node name="MovementStateMachine" type="Node" parent="Logic" node_paths=PackedStringArray("cur_state")]
-script = ExtResource("3_qhqgy")
+[node name="MovementStateMachine" type="Node" parent="Logic" node_paths=PackedStringArray("move_and_slide_logic", "cur_state")]
+script = ExtResource("4_d2wvv")
+move_and_slide_logic = NodePath("../MoveAndSlideLogic")
 cur_state = NodePath("IdleState")
 
-[node name="IdleState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("walking_state", "crouching_state", "player", "horizontal_movement_store", "player_camera")]
+[node name="IdleState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("walking_state", "crouching_state", "jumping_state", "player", "horizontal_movement_store", "player_camera")]
 script = ExtResource("5_fjrip")
 walking_state = NodePath("../WalkingState")
 crouching_state = NodePath("../CrouchingState")
+jumping_state = NodePath("../JumpingState")
 player = NodePath("../../..")
 horizontal_movement_store = NodePath("../../../Stores/HorizontalMovementStore")
 player_camera = NodePath("../../../CameraHolder/Camera3D")
 player_movement_resource = ExtResource("9_y4r1p")
 
-[node name="WalkingState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("idle_state", "crouching_state", "player", "horizontal_movement_store", "player_camera")]
+[node name="WalkingState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("idle_state", "crouching_state", "jumping_state", "player", "horizontal_movement_store", "player_camera")]
 script = ExtResource("6_smehm")
 idle_state = NodePath("../IdleState")
 crouching_state = NodePath("../CrouchingState")
+jumping_state = NodePath("../JumpingState")
 player = NodePath("../../..")
 horizontal_movement_store = NodePath("../../../Stores/HorizontalMovementStore")
 player_camera = NodePath("../../../CameraHolder/Camera3D")
 player_movement_resource = ExtResource("9_y4r1p")
 
-[node name="CrouchingState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("walking_state", "idle_state", "player", "horizontal_movement_store", "player_camera")]
+[node name="CrouchingState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("walking_state", "idle_state", "jumping_state", "player", "horizontal_movement_store", "player_camera")]
 script = ExtResource("8_y4r1p")
+walking_state = NodePath("../WalkingState")
+idle_state = NodePath("../IdleState")
+jumping_state = NodePath("../JumpingState")
+player = NodePath("../../..")
+horizontal_movement_store = NodePath("../../../Stores/HorizontalMovementStore")
+player_camera = NodePath("../../../CameraHolder/Camera3D")
+player_movement_resource = ExtResource("9_y4r1p")
+
+[node name="JumpingState" type="Node" parent="Logic/MovementStateMachine" node_paths=PackedStringArray("crouching_state", "walking_state", "idle_state", "player", "horizontal_movement_store", "player_camera")]
+script = ExtResource("9_3v2ag")
+crouching_state = NodePath("../CrouchingState")
 walking_state = NodePath("../WalkingState")
 idle_state = NodePath("../IdleState")
 player = NodePath("../../..")
@@ -132,3 +149,6 @@ camera_player = NodePath("../../CameraHolder/CameraPlayer")
 metadata/_custom_type_script = "uid://drvqm8nefhw2w"
 
 [connection signal="state_changed" from="Logic/MovementStateMachine" to="Logic/CameraControllerLogic" method="_on_state_changed"]
+[node name="MoveAndSlideLogic" type="Node" parent="Logic" node_paths=PackedStringArray("body")]
+script = ExtResource("11_3v2ag")
+body = NodePath("../..")

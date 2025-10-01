@@ -4,8 +4,10 @@ class_name PlayerMovementResource
 
 @export var walking_max_velocity: float = 15
 @export var walking_acceleration: float = 50
-@export var base_decceleration: float = 80
+@export var base_decceleration: float = 80  # Должно быть не меньше, чем ускорения
 @export var crouching_max_velocity: float = 5
 @export var crouching_acceleration: float = 50
-@export var running_max_velocity: float = 100
-@export var running_acceleration: float = 50
+@export var jumping_max_velocity: float = 10
+@export var jumping_acceleration: float = 10
+@export var jumping_initial_velocity: float = 80
+@export var jumping_max_control_retention: float = 20 # Должно быть не меньше, чем jumping_max_velocity
