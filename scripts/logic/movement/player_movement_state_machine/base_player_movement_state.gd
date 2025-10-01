@@ -13,6 +13,10 @@ func get_player_movement_direction() -> Vector2:
 	var vector3_direction = (player_camera.global_basis * Vector3(input_direction.x, 0.0, input_direction.y))
 	return Vector2(vector3_direction.x, vector3_direction.z).normalized()
 
+func apply_jump():
+	player.velocity.y += player_movement_resource.jumping_initial_velocity
+	horizontal_movement_store.currently_applied_movement = horizontal_movement_store.currently_applied_movement.limit_length(player_movement_resource.jumping_max_control_retention)
+
 func after_move(old_velocity: Vector3, new_velocity: Vector3, slided: bool) -> BasePlayerMovementState:
 	if slided:
 		HorizontalMovementLib.handle_slided(horizontal_movement_store, old_velocity, new_velocity)
