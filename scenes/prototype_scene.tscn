@@ -1,31 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3m6ywg4csdiu"]
+[gd_scene load_steps=7 format=3 uid="uid://b3m6ywg4csdiu"]
 
-[ext_resource type="Material" uid="uid://cmlreoo2qwhp4" path="res://assets/art/godot-prototype-texture/StructureMaterial.tres" id="1_b4brf"]
+[ext_resource type="Material" uid="uid://cmlreoo2qwhp4" path="res://assets/art/prototype-textures/ChessBoardMaterial.tres" id="1_b4brf"]
 [ext_resource type="PackedScene" uid="uid://fr2b2dcij3pb" path="res://scenes/player.tscn" id="1_eh505"]
+[ext_resource type="Material" uid="uid://bwnwdqpn5ht3l" path="res://assets/art/prototype-textures/DefaultGreedMaterial.tres" id="3_fdpej"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_g0xkr"]
-size = Vector3(200, 1, 200)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b4brf"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_eh505"]
-size = Vector3(200, 1, 200)
+[sub_resource type="Sky" id="Sky_fdpej"]
+sky_material = SubResource("ProceduralSkyMaterial_b4brf")
+
+[sub_resource type="Environment" id="Environment_pwfak"]
+background_mode = 2
+sky = SubResource("Sky_fdpej")
+tonemap_mode = 2
+glow_enabled = true
 
 [node name="PrototypeScene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_pwfak")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.3742344, 0.9273342, 0, -0.9273342, -0.3742344, 0, 142.40253, 0)
 
-[node name="OldFloor" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 74.71409, 0)
-visible = false
-
-[node name="Collision" type="CollisionShape3D" parent="OldFloor"]
-shape = SubResource("BoxShape3D_g0xkr")
-
-[node name="Mesh" type="MeshInstance3D" parent="OldFloor"]
-mesh = SubResource("BoxMesh_eh505")
-
 [node name="Floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09276199, 7.6293945e-06, -0.003068447)
+visible = false
 use_collision = true
 size = Vector3(500, 1, 500)
 material = ExtResource("1_b4brf")
@@ -61,3 +63,40 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.284872, 0)
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.08781659, 0.084034435, -0.9925858, 0.048692916, 0.9956063, 0.07998218, 0.9949458, -0.041308135, -0.091522634, -7.8341513, 6.0633097, -2.3378296)
 fov = 70.617744
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="LowerFloor" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 1.69)
+size = Vector3(1000, 1, 1000)
+material = ExtResource("1_b4brf")
+
+[node name="Floor" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.271, 0, 0)
+size = Vector3(50, 1, 100)
+material = ExtResource("3_fdpej")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.878771, 6.1049805, -13.068745)
+radius = 3.0395508
+height = 14.209961
+material = ExtResource("3_fdpej")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.940538, 3.3910503, -23.769629)
+radius = 3.0395508
+height = 14.209961
+material = ExtResource("3_fdpej")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.553823, 6.397828, -10.480196)
+radius = 3.0395508
+height = 19.700684
+material = ExtResource("3_fdpej")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(-0.0064052343, 0, -0.9999795, 0, 1, 0, 0.9999795, 0, -0.0064052343, 1.4015067, -0.2305584, -10.47749)
+polygon = PackedVector2Array(-11.34141, 0.4741373, -10.313898, 10.794352, 1, 0)
+depth = 4.75
+material = ExtResource("3_fdpej")
