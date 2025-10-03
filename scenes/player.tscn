@@ -11,7 +11,7 @@
 [ext_resource type="Resource" uid="uid://dtk2blb0doadl" path="res://resources/player/movement.tres" id="9_y4r1p"]
 [ext_resource type="Script" uid="uid://i6cfyh3no4en" path="res://scripts/logic/state_machine/state_machine_logger.gd" id="10_d2wvv"]
 [ext_resource type="Script" uid="uid://drvqm8nefhw2w" path="res://scripts/logic/camera/camera_controller_logic.gd" id="10_y4r1p"]
-[ext_resource type="Script" path="res://scripts/logic/movement/character_body_move_and_slide_logic.gd" id="11_3v2ag"]
+[ext_resource type="Script" uid="uid://ogc2ldxcn888" path="res://scripts/logic/movement/character_body_move_and_slide_logic.gd" id="11_3v2ag"]
 [ext_resource type="Resource" uid="uid://bgqa0tcc2e6tv" path="res://resources/player/camera_controller.tres" id="11_d2wvv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d2wvv"]

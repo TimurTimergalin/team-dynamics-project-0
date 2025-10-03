@@ -1,63 +1,170 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3m6ywg4csdiu"]
+[gd_scene load_steps=8 format=3 uid="uid://b3m6ywg4csdiu"]
 
-[ext_resource type="Material" uid="uid://cmlreoo2qwhp4" path="res://assets/art/godot-prototype-texture/StructureMaterial.tres" id="1_b4brf"]
+[ext_resource type="Material" uid="uid://cmlreoo2qwhp4" path="res://assets/art/prototype-textures/ChessBoardMaterial.tres" id="1_b4brf"]
 [ext_resource type="PackedScene" uid="uid://fr2b2dcij3pb" path="res://scenes/player.tscn" id="1_eh505"]
+[ext_resource type="Material" uid="uid://ctykb6w7bhr8c" path="res://assets/art/prototype-textures/WhiteGridMaterial.tres" id="1_pwfak"]
+[ext_resource type="Material" uid="uid://bwnwdqpn5ht3l" path="res://assets/art/prototype-textures/DefaultGridMaterial.tres" id="3_fdpej"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_g0xkr"]
-size = Vector3(200, 1, 200)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b4brf"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_eh505"]
-size = Vector3(200, 1, 200)
+[sub_resource type="Sky" id="Sky_fdpej"]
+sky_material = SubResource("ProceduralSkyMaterial_b4brf")
+
+[sub_resource type="Environment" id="Environment_pwfak"]
+background_mode = 2
+sky = SubResource("Sky_fdpej")
+tonemap_mode = 2
+glow_enabled = true
 
 [node name="PrototypeScene" type="Node3D"]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="Lighting" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Lighting"]
+environment = SubResource("Environment_pwfak")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lighting"]
 transform = Transform3D(1, 0, 0, 0, -0.3742344, 0.9273342, 0, -0.9273342, -0.3742344, 0, 142.40253, 0)
 
-[node name="OldFloor" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 74.71409, 0)
-visible = false
+[node name="Environment" type="Node" parent="."]
 
-[node name="Collision" type="CollisionShape3D" parent="OldFloor"]
-shape = SubResource("BoxShape3D_g0xkr")
+[node name="LowerFloor" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 1.69)
+size = Vector3(1000, 1, 1000)
+material = ExtResource("1_pwfak")
 
-[node name="Mesh" type="MeshInstance3D" parent="OldFloor"]
-mesh = SubResource("BoxMesh_eh505")
+[node name="Level_1" type="Node" parent="Environment"]
 
-[node name="Floor" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09276199, 7.6293945e-06, -0.003068447)
+[node name="Floor" type="CSGBox3D" parent="Environment/Level_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5756798, 0, 18.21576)
 use_collision = true
-size = Vector3(500, 1, 500)
+size = Vector3(68.884766, 1, 136.43152)
 material = ExtResource("1_b4brf")
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="Floor"]
-transform = Transform3D(-0.31967047, 0, 0.9475288, 0, 1, 0, -0.9475288, 0, -0.31967047, 10.899532, 1.9165509, -29.530094)
-size = Vector3(5, 15, 25)
-material = ExtResource("1_b4brf")
+[node name="Objects" type="CSGCombiner3D" parent="Environment/Level_1"]
+material_override = ExtResource("3_fdpej")
+use_collision = true
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.372787, 1.9165509, -0.24003029)
-size = Vector3(5, 10, 7)
-material = ExtResource("1_b4brf")
+[node name="Pillar" type="CSGCylinder3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.248359, 6.1049805, -31.194994)
+radius = 6.211914
+height = 14.209961
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9905224, 0.95827544, 23.835878)
-size = Vector3(5, 20, 10)
-material = ExtResource("1_b4brf")
+[node name="Pillar2" type="CSGCylinder3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(0.7547096, -0.656059, 0, -2.867725e-08, -3.2989405e-08, 1, -0.656059, -0.7547096, -4.371139e-08, 19.937164, 16.355246, -20.232334)
+radius = 3.0395508
+height = 19.700684
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.387068, 0.95827544, 10.912836)
-size = Vector3(5, 15, 100)
-material = ExtResource("1_b4brf")
+[node name="Pillar3" type="CSGCylinder3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.877266, 9.908949, 34.92903)
+radius = 5.7124023
+height = 19.700684
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.395604, 1.1589451, -7.9887643)
-size = Vector3(1, 2, 1)
-material = ExtResource("1_b4brf")
+[node name="Pillar4" type="CSGCylinder3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.817623, 30.724506, 27.31007)
+radius = 3.0395508
+height = 61.949173
+
+[node name="Pillar5" type="CSGCylinder3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.877266, 9.908949, 34.92903)
+operation = 2
+radius = 3.5498047
+height = 19.700684
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.899628, 1.5709901, 39.410347)
+operation = 2
+size = Vector3(2.0358887, 6.2938232, 2.9187012)
+
+[node name="Ramp" type="CSGPolygon3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.811, 0.5, 4.5)
+polygon = PackedVector2Array(-10, 0.027, 1, 0, -10, 5)
+depth = 5.0
+
+[node name="Ramp2" type="CSGPolygon3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -4.3280196, 0.5, 4.5)
+polygon = PackedVector2Array(-10, 0, 1, 0, -10, 11)
+depth = 5.0
+
+[node name="Ramp3" type="CSGPolygon3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -11.467247, 0.5, 4.5)
+polygon = PackedVector2Array(-10, 0, 1, 0, -10, 15)
+depth = 5.0
+
+[node name="MiniPillar" type="CSGCylinder3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8078613, -3.489266)
+height = 3.6157227
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.660014, 0.15073967, -5.4871407)
+size = Vector3(2.5708008, 1, 1.647583)
+
+[node name="Platform" type="CSGBox3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.325, 5, 19.506683)
+size = Vector3(5, 1, 10.013367)
+
+[node name="Platform2" type="CSGBox3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07593298, 5, 30.05358)
+size = Vector3(5, 1, 5)
+
+[node name="Platform3" type="CSGBox3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 42.623)
+size = Vector3(5, 1, 5)
+
+[node name="Platform4" type="CSGBox3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.16868, 8.362598, 42.623)
+size = Vector3(5, 1, 5)
+
+[node name="Platform5" type="CSGBox3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.170471, 7.0620966, 42.64551)
+size = Vector3(5, 1, 5)
+
+[node name="Box" type="CSGBox3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.932119, 8.709286, 38.512245)
+size = Vector3(1.5, 1.5, 1.5)
+
+[node name="Box2" type="CSGBox3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.445213, 10.035057, 33.286552)
+size = Vector3(1.5, 1.5, 1.5)
+
+[node name="Box3" type="CSGBox3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.696095, 12.055695, 30.26885)
+size = Vector3(1.5, 1.5, 1.5)
+
+[node name="Box4" type="CSGBox3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.499989, 14.031067, 27.834185)
+size = Vector3(1.5, 1.5, 1.5)
+
+[node name="Box5" type="CSGBox3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.098793, 15.605793, 28.00029)
+size = Vector3(1.5, 1.5, 1.5)
+
+[node name="Box6" type="CSGBox3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.99259, 17.183725, 29.798107)
+size = Vector3(1.5, 1.5, 1.5)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.679655, -1.5491958, 0)
+radius = 4.5800176
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.679655, -1.626091, -8.438629)
+radius = 3.3664281
+
+[node name="CSGSphere3D3" type="CSGSphere3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1696715, -2.6818342, -9.866516)
+radius = 4.981772
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="Environment/Level_1/Objects"]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0.26572585, 8.294938, 35.85167)
+inner_radius = 1.7291591
+outer_radius = 2.5809321
 
 [node name="Player" parent="." instance=ExtResource("1_eh505")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.284872, 0)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 2.4867916, 0)
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="3rdPersonCamera" type="Camera3D" parent="."]
 transform = Transform3D(-0.08781659, 0.084034435, -0.9925858, 0.048692916, 0.9956063, 0.07998218, 0.9949458, -0.041308135, -0.091522634, -7.8341513, 6.0633097, -2.3378296)
 fov = 70.617744
