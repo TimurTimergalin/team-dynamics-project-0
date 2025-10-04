@@ -7,13 +7,17 @@ extends BasePlayerMovementState
 
 func enter() -> void:
     horizontal_movement_store.acceleration = player_movement_resource.jumping_acceleration
+    horizontal_movement_store.decceleration = player_movement_resource.jumping_decceleration
     horizontal_movement_store.max_velocity = player_movement_resource.jumping_max_velocity
 
 
 func physics_process(delta: float) -> State:
     var direction = get_player_movement_direction()
     horizontal_movement_store.direction = direction
-    HorizontalMovementLib.move_without_decceleration(player, horizontal_movement_store, delta)
+    if horizontal_movement_store.decceleration == 0:
+        HorizontalMovementLib.move_without_decceleration(player, horizontal_movement_store, delta)
+    else:
+        HorizontalMovementLib.move_with_decceleration(player, horizontal_movement_store, delta)
     return self
 
 
