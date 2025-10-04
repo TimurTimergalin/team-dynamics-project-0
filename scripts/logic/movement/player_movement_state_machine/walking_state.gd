@@ -5,10 +5,12 @@ extends BasePlayerMovementState
 @export var crouching_state: BasePlayerMovementState
 @export var jumping_state: BasePlayerMovementState
 
+
 func enter() -> void:
     horizontal_movement_store.decceleration = player_movement_resource.base_decceleration
     horizontal_movement_store.acceleration = player_movement_resource.walking_acceleration
     horizontal_movement_store.max_velocity = player_movement_resource.walking_max_velocity
+
 
 func physics_process(delta: float) -> State:
     var direction = get_player_movement_direction()
