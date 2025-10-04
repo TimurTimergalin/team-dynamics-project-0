@@ -1,1 +1,0 @@
-forfiles /s /m *.gd /c "cmd /c gdlint @path"
