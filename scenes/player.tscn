@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://fr2b2dcij3pb"]
+[gd_scene load_steps=20 format=3 uid="uid://fr2b2dcij3pb"]
 
 [ext_resource type="Script" uid="uid://dcb6ufef25w8f" path="res://scripts/logic/movement/gravity_logic.gd" id="1_rkhd4"]
 [ext_resource type="Script" uid="uid://do2nsn7vo6vpd" path="res://scripts/stores/movement/gravity_store.gd" id="2_lrhn5"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://drvqm8nefhw2w" path="res://scripts/logic/camera/camera_controller_logic.gd" id="10_y4r1p"]
 [ext_resource type="Script" uid="uid://ogc2ldxcn888" path="res://scripts/logic/movement/character_body_move_and_slide_logic.gd" id="11_3v2ag"]
 [ext_resource type="Resource" uid="uid://bgqa0tcc2e6tv" path="res://resources/player/camera_controller.tres" id="11_d2wvv"]
+[ext_resource type="Script" uid="uid://dbj1bol4buh0d" path="res://scripts/logic/movement/character_body_move_and_slide_logger.gd" id="11_f1ej7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d2wvv"]
 size = Vector3(1, 2, 1)
@@ -136,10 +137,16 @@ horizontal_movement_store = NodePath("../../../Stores/HorizontalMovementStore")
 player_camera = NodePath("../../../CameraHolder/Camera3D")
 player_movement_resource = ExtResource("9_y4r1p")
 
-[node name="MovementStateMachineLog" type="Node" parent="Logic" node_paths=PackedStringArray("state_machine")]
+[node name="Loggers" type="Node" parent="Logic"]
+
+[node name="MovementStateMachineLogger" type="Node" parent="Logic/Loggers" node_paths=PackedStringArray("state_machine")]
 script = ExtResource("10_d2wvv")
-state_machine = NodePath("../MovementStateMachine")
+state_machine = NodePath("../../MovementStateMachine")
 machine_name = "Movement State Machine"
+
+[node name="CharacterBodyMoveAndSlideLogger" type="Node" parent="Logic/Loggers"]
+script = ExtResource("11_f1ej7")
+metadata/_custom_type_script = "uid://dbj1bol4buh0d"
 
 [node name="CameraControllerLogic" type="Node" parent="Logic" node_paths=PackedStringArray("camera_holder", "camera", "camera_player")]
 script = ExtResource("10_y4r1p")
@@ -152,5 +159,7 @@ metadata/_custom_type_script = "uid://drvqm8nefhw2w"
 [node name="MoveAndSlideLogic" type="Node" parent="Logic" node_paths=PackedStringArray("body")]
 script = ExtResource("11_3v2ag")
 body = NodePath("../..")
+player_movement_resource = ExtResource("9_y4r1p")
 
 [connection signal="state_changed" from="Logic/MovementStateMachine" to="Logic/CameraControllerLogic" method="_on_state_changed"]
+[connection signal="after_move" from="Logic/MoveAndSlideLogic" to="Logic/Loggers/CharacterBodyMoveAndSlideLogger" method="_on_move_and_slide"]
