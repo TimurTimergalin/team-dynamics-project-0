@@ -1,6 +1,6 @@
-extends Node
-
 class_name HorizontalMovementStore
+
+extends Node
 
 var max_velocity: float
 var acceleration: float

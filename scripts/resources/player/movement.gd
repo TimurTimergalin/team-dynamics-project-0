@@ -1,6 +1,6 @@
-extends Resource
-
 class_name PlayerMovementResource
+
+extends Resource
 
 @export var walking_max_velocity: float = 15
 @export var walking_acceleration: float = 50

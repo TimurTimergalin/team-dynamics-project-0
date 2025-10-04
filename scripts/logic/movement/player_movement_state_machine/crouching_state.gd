@@ -1,4 +1,5 @@
 class_name CrouchingState
+
 extends BasePlayerMovementState
 
 @export var walking_state: BasePlayerMovementState
@@ -23,7 +24,6 @@ func physics_process(delta: float) -> State:
     if !Input.is_action_pressed(MainActions.crouch):
         if direction:
             return walking_state
-        else:
-            return idle_state
+        return idle_state
 
     return self

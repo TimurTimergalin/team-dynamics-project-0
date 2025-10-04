@@ -1,4 +1,5 @@
 class_name IdleState
+
 extends BasePlayerMovementState
 
 @export var walking_state: BasePlayerMovementState

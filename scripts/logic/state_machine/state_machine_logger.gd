@@ -1,6 +1,6 @@
-extends Node
-
 class_name StateMachineLogger
+
+extends Node
 
 @export var state_machine: StateMachine
 @export var machine_name: String = "Anonymous State Machine"

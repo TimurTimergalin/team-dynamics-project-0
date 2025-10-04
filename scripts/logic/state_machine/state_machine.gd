@@ -1,10 +1,10 @@
-extends Node
-
 class_name StateMachine
 
-@export var cur_state: State
+extends Node
 
 signal state_changed
+
+@export var cur_state: State
 
 
 func swap_state(new_state: State):

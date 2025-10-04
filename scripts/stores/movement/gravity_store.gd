@@ -1,6 +1,6 @@
-extends Node
-
 class_name GravityStore
+
+extends Node
 
 @export var resource: Resource
 

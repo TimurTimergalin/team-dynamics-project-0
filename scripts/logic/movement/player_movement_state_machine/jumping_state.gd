@@ -17,16 +17,12 @@ func physics_process(delta: float) -> State:
     return self
 
 
-func after_move(
-    _old_velocity: Vector3, _new_velocity: Vector3, _slided: bool
-) -> BasePlayerMovementState:
+func after_move(_old_velocity: Vector3, _new_velocity: Vector3, _slided: bool) -> BasePlayerMovementState:
     super.after_move(_old_velocity, _new_velocity, _slided)
     if not player.is_on_floor():
         return self
 
-    horizontal_movement_store.currently_applied_movement = Vector2(
-        player.velocity.x, player.velocity.z
-    )
+    horizontal_movement_store.currently_applied_movement = Vector2(player.velocity.x, player.velocity.z)
     if Input.is_action_pressed(MainActions.crouch):
         return crouching_state
 

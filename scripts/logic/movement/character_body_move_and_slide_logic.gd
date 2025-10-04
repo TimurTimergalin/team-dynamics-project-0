@@ -1,10 +1,10 @@
-extends Node
-
 class_name CharacterBodyMoveAndSlideLogic
 
-@export var body: CharacterBody3D
+extends Node
 
 signal after_move
+
+@export var body: CharacterBody3D
 
 
 func _physics_process(_delta: float) -> void:
