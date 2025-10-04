@@ -90,7 +90,7 @@ depth = 5.0
 
 [node name="Ramp3" type="CSGPolygon3D" parent="Environment/Level_1/Objects"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -11.467247, 0.5, 4.5)
-polygon = PackedVector2Array(-10, 0, 1, 0, -10, 15)
+polygon = PackedVector2Array(-10, 0, 1, 0, -9.402536, 32.656143)
 depth = 5.0
 
 [node name="MiniPillar" type="CSGCylinder3D" parent="Environment/Level_1/Objects"]
