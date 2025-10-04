@@ -5,9 +5,10 @@
 [resource]
 script = ExtResource("1_tlj7n")
 walking_max_velocity = 10.0
-base_decceleration = 100.0
-jumping_max_velocity = 20.0
-jumping_acceleration = 100.0
+walking_acceleration = 200.0
+base_decceleration = 200.0
+jumping_max_velocity = 8.0
+jumping_acceleration = 200.0
 jumping_initial_velocity = 7.0
-jumping_max_control_retention = 5.0
+jumping_max_control_retention = 8.0
 free_fall_acceleration = -20.0
