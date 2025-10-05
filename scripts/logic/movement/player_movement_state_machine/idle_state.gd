@@ -3,7 +3,6 @@ class_name IdleState
 extends BasePlayerMovementState
 
 @export var walking_state: BasePlayerMovementState
-@export var crouching_state: BasePlayerMovementState
 @export var jumping_state: BasePlayerMovementState
 
 
@@ -19,8 +18,6 @@ func physics_process(delta: float) -> State:
     if Input.is_action_just_pressed(MainActions.jump):
         apply_jump()
         return jumping_state
-    if Input.is_action_pressed(MainActions.crouch):
-        return crouching_state
 
     if direction:
         return walking_state

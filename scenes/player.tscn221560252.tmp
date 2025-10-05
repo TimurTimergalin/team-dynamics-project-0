@@ -149,4 +149,5 @@ script = ExtResource("11_3v2ag")
 body = NodePath("../..")
 player_movement_resource = ExtResource("9_y4r1p")
 
+[connection signal="state_changed" from="Logic/MovementStateMachine" to="Logic/CameraControllerLogic" method="_on_state_changed"]
 [connection signal="after_move" from="Logic/MoveAndSlideLogic" to="Logic/Loggers/CharacterBodyMoveAndSlideLogger" method="_on_move_and_slide"]
