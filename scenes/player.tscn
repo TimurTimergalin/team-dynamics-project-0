@@ -57,9 +57,9 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody3D"]
-wall_min_slide_angle = 0.0
-floor_block_on_wall = false
-floor_max_angle = 1.6214108
+wall_min_slide_angle = 0.017453292
+floor_constant_speed = true
+floor_snap_length = 1.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_d2wvv")

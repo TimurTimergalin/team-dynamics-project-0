@@ -15,7 +15,3 @@ extends Resource
 
 @export var free_fall_acceleration: float = -15
 @export var free_fall_decceleration: float = -9.8
-
-@export var floor_max_angle: float = 45
-@export var is_floor_constant_speed: bool = true
-@export var floor_snap_length: float = 1
