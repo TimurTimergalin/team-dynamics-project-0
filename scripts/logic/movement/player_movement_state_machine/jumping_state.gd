@@ -1,6 +1,5 @@
 extends BasePlayerMovementState
 
-@export var crouching_state: BasePlayerMovementState
 @export var walking_state: BasePlayerMovementState
 @export var idle_state: BasePlayerMovementState
 
@@ -26,9 +25,9 @@ func after_move(_old_velocity: Vector3, _new_velocity: Vector3, _slided: bool) -
     if not player.is_on_floor():
         return self
 
+    player.velocity.y = 0
+
     horizontal_movement_store.currently_applied_movement = Vector2(player.velocity.x, player.velocity.z)
-    if Input.is_action_pressed(MainActions.crouch):
-        return crouching_state
 
     if horizontal_movement_store.direction:
         return walking_state
