@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://l8lpc3nc6xt0"]
+
+[ext_resource type="Script" uid="uid://dfvw74l1tr4wr" path="res://scripts/interface/plane_cast.gd" id="1_lpsdx"]
+
+[node name="PlaneCast" type="Node3D"]
+script = ExtResource("1_lpsdx")

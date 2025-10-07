@@ -1,5 +1,5 @@
 class_name CameraControllerLogic
-extends Node
+extends BaseLogic
 
 const CAMERA_CROUCH := "camera_crouch"
 

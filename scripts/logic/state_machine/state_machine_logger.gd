@@ -1,6 +1,6 @@
 class_name StateMachineLogger
 
-extends Node
+extends BaseLogic
 
 @export var state_machine: StateMachine
 @export var machine_name: String = "Anonymous State Machine"

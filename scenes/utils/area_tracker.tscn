@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bo6q2asiur41b"]
+
+[ext_resource type="Script" uid="uid://doe3sghigde52" path="res://scripts/stores/common/node_store.gd" id="1_5jhxs"]
+[ext_resource type="Script" uid="uid://47x01a2opv5n" path="res://scripts/interface/area_tracker.gd" id="1_h5mfn"]
+[ext_resource type="Script" uid="uid://cutmbwltnvbwa" path="res://scripts/logic/common/tracking_logic.gd" id="2_hmetl"]
+
+[node name="AreaTracker" type="Area3D"]
+script = ExtResource("1_h5mfn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+
+[node name="Stores" type="Node" parent="."]
+
+[node name="NodeStore" type="Node" parent="Stores"]
+script = ExtResource("1_5jhxs")
+
+[node name="Logic" type="Node" parent="."]
+
+[node name="TrackingLogic" type="Node" parent="Logic" node_paths=PackedStringArray("node_store")]
+script = ExtResource("2_hmetl")
+node_store = NodePath("../../Stores/NodeStore")
+
+[connection signal="body_entered" from="." to="Logic/TrackingLogic" method="_body_entered"]
+[connection signal="body_exited" from="." to="Logic/TrackingLogic" method="_body_exited"]
