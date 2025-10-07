@@ -164,7 +164,7 @@ inner_radius = 1.7291591
 outer_radius = 2.5809321
 
 [node name="Player" parent="." instance=ExtResource("1_eh505")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 2.4867916, 0)
+transform = Transform3D(0.10452836, 0, 0.9945219, 0, 1, 0, -0.9945219, 0, 0.10452836, 0, 2.4867916, 0)
 
 [node name="3rdPersonCamera" type="Camera3D" parent="."]
 transform = Transform3D(-0.08781659, 0.084034435, -0.9925858, 0.048692916, 0.9956063, 0.07998218, 0.9949458, -0.041308135, -0.091522634, -7.8341513, 6.0633097, -2.3378296)

@@ -30,7 +30,5 @@ func apply_jump():
     )
 
 
-func after_move(old_velocity: Vector3, new_velocity: Vector3, slided: bool) -> BasePlayerMovementState:
-    if slided:
-        HorizontalMovementLib.handle_slided(horizontal_movement_store, old_velocity, new_velocity)
+func after_move(_old_velocity: Vector3, _new_velocity: Vector3, _slided: bool) -> BasePlayerMovementState:
     return self

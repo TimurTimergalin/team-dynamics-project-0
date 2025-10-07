@@ -1,6 +1,6 @@
 class_name CharacterBodyMoveAndSlideLogger
 
-extends Node
+extends BaseLogic
 
 
 func _on_move_and_slide(_old_velocity, cur_velocity, _slided) -> void:

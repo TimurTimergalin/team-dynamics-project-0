@@ -19,3 +19,6 @@ extends Resource
 @export var floor_max_angle: float = 45
 @export var is_floor_constant_speed: bool = true
 @export var floor_snap_length: float = 1
+
+@export var max_stair_angle: float = deg_to_rad(10)
+@export var stairs_fit_checks_height: float = 0.1

@@ -1,6 +1,6 @@
 class_name CharacterBodyMoveAndSlideLogic
 
-extends Node
+extends BaseLogic
 
 signal after_move
 

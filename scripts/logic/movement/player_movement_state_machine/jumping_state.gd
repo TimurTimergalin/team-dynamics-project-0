@@ -20,8 +20,9 @@ func physics_process(delta: float) -> State:
     return self
 
 
-func after_move(_old_velocity: Vector3, _new_velocity: Vector3, _slided: bool) -> BasePlayerMovementState:
-    super.after_move(_old_velocity, _new_velocity, _slided)
+func after_move(old_velocity: Vector3, new_velocity: Vector3, slided: bool) -> BasePlayerMovementState:
+    if slided:
+        HorizontalMovementLib.handle_slided(horizontal_movement_store, old_velocity, new_velocity)
     if not player.is_on_floor():
         return self
 

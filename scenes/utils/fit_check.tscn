@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://15sfakicsrfh"]
+
+[ext_resource type="Script" uid="uid://13qrdfmfm5dc" path="res://scripts/interface/fit_check.gd" id="1_ls6up"]
+[ext_resource type="PackedScene" uid="uid://l8lpc3nc6xt0" path="res://scenes/utils/plane_cast.tscn" id="2_qjn1w"]
+
+[node name="FitCheck" type="Node3D"]
+script = ExtResource("1_ls6up")
+
+[node name="UpCheck" parent="." instance=ExtResource("2_qjn1w")]
+
+[node name="DownCheck" parent="." instance=ExtResource("2_qjn1w")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0)

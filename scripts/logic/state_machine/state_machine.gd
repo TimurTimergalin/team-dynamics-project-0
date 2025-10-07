@@ -1,6 +1,6 @@
 class_name StateMachine
 
-extends Node
+extends BaseLogic
 
 signal state_changed
 
